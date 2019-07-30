@@ -1,0 +1,59 @@
+Reference: http://www.expertsphp.com/send-mail-using-mail-function-in-laravel-5-7-or-laravel-5-8/
+
+form.blade.php
+//START form.blade.php
+...
+<form method="POST" action="/api/request1" target="_blank" id="myFormx">
+       <div class="form-group">
+          <label for="exampleInputEmail1">Company Name</label>
+          <input type="name" name="name" class="form-control" id="exampleInputName1">
+       </div>
+       <div class="form-group">
+          <label for="exampleInputEmail1">Company@HR Department Email Address</label>
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+       </div>
+   <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
+</form>
+...
+//END form.blade.php
+
+
+api.php
+//IN BETWEEN api.php
+...
+Route::post('requestx', 'SendMailController@request1');
+...
+//END api.php
+
+SendMailController.php
+...
+//START SendMailController.php
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use Redirect;
+use View;
+use Mail;
+
+
+class SendMailController extends Controller
+{
+public function requestx(request $req)
+{
+$mailid = $req->email;
+$nama = $req->name;
+$x = "Resume Request for ";
+$subject = $x . $nama;
+$data = array('email' => $mailid, 'subject' => $subject);
+Mail::send('emails.newsinfo', $data, function ($message) use ($data) {
+$message->from('xxxxx@xxxx.com', '');
+$message->to($data['email']);
+$message->subject($data['subject']); 
+});
+return redirect()->back()->with('message','Successfully Send Your Mail Id.');
+}
+}
+
+//END SendMailController.php
