@@ -1,0 +1,17 @@
+Reference: http://www.expertsphp.com/send-mail-using-mail-function-in-laravel-5-7-or-laravel-5-8/
+
+Please follow all the steps at http://www.expertsphp.com/send-mail-using-mail-function-in-laravel-5-7-or-laravel-5-8/.
+
+All works are credited to jyoti (http://www.expertsphp.com/author/rahul/).
+
+Laravel version : 5.8
+
+
+Error after switch MAIL_DRIVER=smtp to mail.
+
+If you got similar error like mine, kindly change the MAIL_DRIVER back to smtp.
+if (!$response) {
+            $this->throwException(new Swift_TransportException('Expected response code '.implode('/', $wanted).' but got an empty response'));
+}
+
+
